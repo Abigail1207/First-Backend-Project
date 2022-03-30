@@ -7,7 +7,7 @@ app.use(express.json());
 app.get('/api/topics' , getTopics);
 
 app.use((req, res, next) => {
-  res.status(404).send({mes : 'Not found'});
+  res.status(404).send({mes : 'Not found' });
 })
 
 
