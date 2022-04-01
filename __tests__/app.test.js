@@ -36,3 +36,43 @@ describe('topics', () => {
  			});
  	});
 });
+describe('/api/articles', () => {
+	test('200 - Success : respond with an array of obj', () => {
+		return request(app) //app으로 연결해서 들어가는 것 
+			.get('/api/articles')
+			.expect(200)
+			.then((response) => {
+				expect(response.body.articles).toBeInstanceOf(Object);
+				expect(response.body.articles.length).toBe(12);
+				response.body.articles.forEach((article) => {
+					expect(article).toMatchObject({
+						article_id: expect.any(Number),
+						created_at: expect.any(String),
+						votes: expect.any(Number),
+						body: expect.any(String),
+						author: expect.any(String),
+						title: expect.any(String),
+						topic: expect.any(String),
+					});
+				});
+			});
+	});
+});
+// describe('/api/articles/article_id', () => {
+// 	test('200 - Success : respond with an obj', () => {
+// 		return request(app)
+// 			.get('/api/articles/1')
+// 			.expect(200)
+// 			.then((response) => {
+// 				expect(response.body.article).toMatchObject({
+// 					article_id: 1,
+// 					title: 'Living in the shadow of a great man',
+// 					topic: 'mitch',
+// 					author: 'butter_bridge',
+// 					body: 'I find this existence challenging',
+// 					created_at: '2020-07-09T20:11:00.000Z',
+// 					votes: 100,
+// 				});
+// 			});
+// 	});
+// });
